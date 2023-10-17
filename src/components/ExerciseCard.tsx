@@ -12,7 +12,6 @@ export const ExerciseCard = ({ ...rest }: Props) => {
         alignItems="center"
         p={3}
         rounded="md"
-        pr={4}
         mb={3}
       >
         <Image
@@ -24,7 +23,7 @@ export const ExerciseCard = ({ ...rest }: Props) => {
           h={16}
           rounded="md"
           mr={3}
-          borderWidth={2}
+          borderWidth={1}
           borderColor="blue.400"
           resizeMode="stretch"
         />

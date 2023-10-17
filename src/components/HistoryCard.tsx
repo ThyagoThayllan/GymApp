@@ -11,8 +11,8 @@ export const HistoryCard = () => {
       rounded="md"
       alignItems="center"
     >
-      <VStack mr={6}>
-        <Heading color="gray.300" fontSize="md" textTransform="capitalize">
+      <VStack mr={6} flex={1}>
+        <Heading color="gray.300" fontSize="md" textTransform="capitalize" fontFamily='heading' numberOfLines={1}>
           Costas
         </Heading>
         <Text color="gray.100" fontSize="lg" numberOfLines={1}>

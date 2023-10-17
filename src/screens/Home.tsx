@@ -3,6 +3,8 @@ import { Group } from "@components/Group";
 import { HomeHeader } from "@components/HomeHeader";
 import { FlatList, HStack, Heading, Text, VStack } from "native-base";
 import { ExerciseCard } from "@components/ExerciseCard";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigatorRoutesProps } from "@routes/app.routes";
 
 export const Home = () => {
   const [groups, setGroups] = useState([
@@ -19,6 +21,12 @@ export const Home = () => {
   ]);
   const [groupSelected, setGroupSelected] = useState("Costas");
 
+  const navigation = useNavigation<AppNavigatorRoutesProps>();
+
+  const handleOpenExerciseDetails = () => {
+    navigation.navigate("exercise");
+  };
+
   return (
     <VStack flex={1}>
       <HomeHeader />
@@ -29,7 +37,9 @@ export const Home = () => {
         renderItem={({ item }) => (
           <Group
             name={item}
-            isActive={groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()}
+            isActive={
+              groupSelected.toLocaleUpperCase() === item.toLocaleUpperCase()
+            }
             onPress={() => setGroupSelected(item)}
           />
         )}
@@ -55,10 +65,10 @@ export const Home = () => {
           data={exercises}
           keyExtractor={(item) => item}
           renderItem={({ item }) => (
-            <ExerciseCard />
+            <ExerciseCard onPress={handleOpenExerciseDetails} />
           )}
           showsVerticalScrollIndicator={false}
-          _contentContainerStyle={{paddingBottom: 20}}
+          _contentContainerStyle={{ paddingBottom: 20 }}
         />
       </VStack>
     </VStack>
