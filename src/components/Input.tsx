@@ -21,7 +21,7 @@ export const Input = ({ errorMessage = null, isInvalid, ...rest }: Props) => {
         isInvalid={invalid}
         _invalid={{
           borderWidth: 1,
-          borderColor: "red.500",
+          borderColor: "red.400",
         }}
         _focus={{
           bg: "gray.700",
@@ -31,7 +31,9 @@ export const Input = ({ errorMessage = null, isInvalid, ...rest }: Props) => {
         {...rest}
       />
 
-      <FormControl.ErrorMessage>{errorMessage}</FormControl.ErrorMessage>
+      <FormControl.ErrorMessage _text={{ color: "red.400" }}>
+        {errorMessage}
+      </FormControl.ErrorMessage>
     </FormControl>
   );
 };
