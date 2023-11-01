@@ -10,6 +10,7 @@ type AuthContextProviderProps = {
 export type AuthContextDataProps = {
   user: UserDTO;
   signIn: (email: string, password: string) => Promise<void>;
+  isLoadingUserStorageData: boolean;
 };
 
 export const AuthContext = createContext<AuthContextDataProps>(
@@ -18,6 +19,7 @@ export const AuthContext = createContext<AuthContextDataProps>(
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   const [user, setUser] = useState<UserDTO>({} as UserDTO);
+  const [isLoadingUserStorageData, setIsLoadingUserStorageData] = useState(true);
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -33,10 +35,16 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   };
 
   const loadUserData = async () => {
-    const userLogged = await storageUserGet();
+    try {
+      const userLogged = await storageUserGet();
 
-    if (userLogged) {
-      setUser(userLogged);
+      if (userLogged) {
+        setUser(userLogged);
+      }
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoadingUserStorageData(false);
     }
   };
 
@@ -45,7 +53,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signIn }}>
+    <AuthContext.Provider value={{ user, signIn, isLoadingUserStorageData }}>
       {children}
     </AuthContext.Provider>
   );
